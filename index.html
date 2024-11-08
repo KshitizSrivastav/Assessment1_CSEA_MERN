@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bu ndle.min.js"></script>
+</head>
+<body>
+    <div class="inputform">
+        <h1>RESUME BUILDER</h1>
+        <form id="resume">
+          <label>Name:</label>
+          <input type="text" id="name" required>
+    
+          <label>Email:</label>
+          <input type="email" id="email" required>
+    
+          <label>Phone Number:</label>
+          <input type="tel" id="phone" required>
+    
+          <label>LinkedIn Profile:</label>
+          <input type="url" id="linkedin">
+    
+          <label>GitHub Profile:</label>
+          <input type="url" id="github">
+    
+          <label>Work Experience:</label>
+          <textarea id="exp" rows="2"></textarea>
+    
+          <label>Education:</label>
+          <textarea id="edu" rows="2"></textarea>
+    
+          <label>Upload Photo:</label>
+          <input type="file" id="photo" accept="image/*">
+    
+          <button type="button" onclick="generate()">Generate Resume</button>
+        </form>
+    
+        <div class="output" id="output">
+          <h2 style="text-align: center;">Generated Resume</h2>
+          <p style="text-align: center;"><img id="op-photo" alt="Uploaded photo" style="max-width: 100px; display: none;"></p>
+          <p ><strong>Name:</strong> <span id="op-name"></span></p>
+          <p ><strong>Email:</strong> <span id="op-email"></span></p>
+          <p><strong>Phone:</strong> <span id="op-phone"></span></p>
+          <p><strong>LinkedIn:</strong> <span id="op-linkedin"></span></p>
+          <p ><strong>GitHub:</strong> <span id="op-github"></span></p>
+          <p ><strong>Experience:</strong> <span id="op-experience"></span></p>
+          <p ><strong>Education:</strong> <span id="op-education"></span></p>
+          <p><strong>Photo:</strong> <img id="op-photo" alt="Uploaded photo" style="max-width: 100px; display: none;"></p>
+        </div>
+      </div>
+
+      <script>
+        function generate() {
+         // Display photo
+          const photoIp = document.getElementById("photo");
+          const photoOp = document.getElementById("op-photo");
+          if (photoIp.files && photoIp.files[0]) {
+            const read = new FileReader();
+            read.onload = function (e) {
+              photoOp.src = e.target.result;
+              photoOp.style.display = 'block';
+            };
+            read.readAsDataURL(photoIp.files[0]);
+          } else {
+            photoOp.style.display = 'none';
+          }
+        // Get input values from the form and display on the generated output
+          document.getElementById("op-name").textContent = document.getElementById("name").value;
+          document.getElementById("op-email").textContent = document.getElementById("email").value;
+          document.getElementById("op-phone").textContent = document.getElementById("phone").value;
+          document.getElementById("op-linkedin").textContent = document.getElementById("linkedin").value;
+          document.getElementById("op-github").textContent = document.getElementById("github").value;
+          document.getElementById("op-experience").textContent = document.getElementById("exp").value;
+          document.getElementById("op-education").textContent = document.getElementById("edu").value;
+    
+    
+          
+    
+          // Show the resume output
+          document.getElementById("output").style.display = "block";
+          document.getElementById("resume").style.display = "none";
+        }
+      </script>
+</body>
+</html>
