@@ -48,7 +48,7 @@
           <p ><strong>GitHub:</strong> <span id="op-github"></span></p>
           <p ><strong>Experience:</strong> <span id="op-experience"></span></p>
           <p ><strong>Education:</strong> <span id="op-education"></span></p>
-          <p><strong>Photo:</strong> <img id="op-photo" alt="Uploaded photo" style="max-width: 100px; display: none;"></p>
+          <button id="download" onclick="downloadResume()">Download Your Resume</button>
         </div>
       </div>
 
@@ -75,14 +75,25 @@
           document.getElementById("op-github").textContent = document.getElementById("github").value;
           document.getElementById("op-experience").textContent = document.getElementById("exp").value;
           document.getElementById("op-education").textContent = document.getElementById("edu").value;
-    
-    
-          
-    
-          // Show the resume output
+        // Show the resume output
           document.getElementById("output").style.display = "block";
           document.getElementById("resume").style.display = "none";
         }
+        function downloadResume() {
+        const resume = document.getElementById('output');
+        const download = document.getElementById('download');
+        download.addEventListener('click', () => {
+        const options = {
+            margin: 1,
+            filename: 'Resume.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        
+        html2pdf().set(options).from(resume).save();
+    });
+}
       </script>
 </body>
 </html>
